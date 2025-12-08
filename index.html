@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奥术大师 - Arcane Master</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- 游戏标题 -->
+        <header class="game-header">
+            <h1 class="game-title">
+                <span class="arcane-icon">✨</span>
+                奥术大师
+                <span class="arcane-icon">✨</span>
+            </h1>
+            <p class="game-subtitle">掌握神秘的魔法力量</p>
+        </header>
+
+        <!-- 玩家状态面板 -->
+        <div class="player-stats">
+            <div class="stat-card">
+                <div class="stat-icon">❤️</div>
+                <div class="stat-info">
+                    <span class="stat-label">生命值</span>
+                    <div class="stat-bar">
+                        <div id="health-bar" class="stat-fill health-fill"></div>
+                    </div>
+                    <span id="health-text" class="stat-value">100/100</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-info">
+                    <span class="stat-label">法力值</span>
+                    <div class="stat-bar">
+                        <div id="mana-bar" class="stat-fill mana-fill"></div>
+                    </div>
+                    <span id="mana-text" class="stat-value">150/150</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-info">
+                    <span class="stat-label">经验值</span>
+                    <div class="stat-bar">
+                        <div id="exp-bar" class="stat-fill exp-fill"></div>
+                    </div>
+                    <span id="exp-text" class="stat-value">0/100</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-info">
+                    <span class="stat-label">等级</span>
+                    <span id="level-text" class="stat-value-large">1</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏主区域 -->
+        <div class="game-main">
+            <!-- 战斗区域 -->
+            <div class="battle-area">
+                <div id="player-character" class="character player-char">
+                    <div class="character-avatar">🧙‍♂️</div>
+                    <div class="character-name">奥术大师</div>
+                    <div class="character-health-bar">
+                        <div class="character-health-fill"></div>
+                    </div>
+                </div>
+
+                <div id="enemy-character" class="character enemy-char hidden">
+                    <div class="character-avatar">👹</div>
+                    <div class="character-name">暗影恶魔</div>
+                    <div class="character-health-bar">
+                        <div class="character-health-fill"></div>
+                    </div>
+                </div>
+
+                <div id="battle-effects" class="battle-effects"></div>
+            </div>
+
+            <!-- 法术书 -->
+            <div class="spellbook">
+                <h2 class="section-title">
+                    <span class="title-icon">📖</span>
+                    法术书
+                </h2>
+                <div class="spell-grid" id="spell-grid">
+                    <!-- 法术将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 战斗日志 -->
+        <div class="battle-log">
+            <h3 class="section-title">
+                <span class="title-icon">📜</span>
+                战斗日志
+            </h3>
+            <div id="log-content" class="log-content">
+                <div class="log-entry welcome-message">
+                    欢迎来到奥术大师的世界！选择你的法术开始战斗吧！
+                </div>
+            </div>
+        </div>
+
+        <!-- 控制按钮 -->
+        <div class="controls">
+            <button id="start-battle-btn" class="btn btn-primary">
+                <span class="btn-icon">⚔️</span>
+                开始战斗
+            </button>
+            <button id="heal-btn" class="btn btn-secondary" disabled>
+                <span class="btn-icon">💚</span>
+                治疗 (30法力)
+            </button>
+            <button id="meditate-btn" class="btn btn-secondary" disabled>
+                <span class="btn-icon">🧘</span>
+                冥想恢复
+            </button>
+            <button id="reset-btn" class="btn btn-danger">
+                <span class="btn-icon">🔄</span>
+                重置游戏
+            </button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
