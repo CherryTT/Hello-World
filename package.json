@@ -1,0 +1,29 @@
+{
+  "name": "arcane-master",
+  "version": "1.0.0",
+  "description": "一个基于Web的魔法主题回合制战斗游戏",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "npx http-server -p 8000 -o"
+  },
+  "keywords": [
+    "game",
+    "magic",
+    "arcane",
+    "turn-based",
+    "rpg",
+    "browser-game",
+    "javascript"
+  ],
+  "author": "Arcane Master Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/arcane-master.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/arcane-master/issues"
+  },
+  "homepage": "https://github.com/yourusername/arcane-master#readme"
+}
