@@ -14,6 +14,27 @@
       --food: #f87171;
       --text: #e2e8f0;
       --muted: #94a3b8;
+      --overlay-bg: rgba(15, 23, 42, 0.82);
+      --kbd-border: #334155;
+      --btn-text: #052e22;
+      --grid-line: rgba(148, 163, 184, 0.08);
+      --shadow: rgba(0, 0, 0, 0.45);
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --grid: #eef2f7;
+      --snake: #10b981;
+      --snake-head: #047857;
+      --food: #ef4444;
+      --text: #0f172a;
+      --muted: #64748b;
+      --overlay-bg: rgba(248, 250, 252, 0.9);
+      --kbd-border: #cbd5e1;
+      --btn-text: #ffffff;
+      --grid-line: rgba(100, 116, 139, 0.14);
+      --shadow: rgba(15, 23, 42, 0.12);
     }
 
     * {
@@ -58,7 +79,7 @@
       border-radius: 12px;
       padding: 10px;
       background: var(--panel);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 10px 30px var(--shadow);
     }
 
     canvas {
@@ -76,7 +97,7 @@
       align-items: center;
       justify-content: center;
       gap: 14px;
-      background: rgba(15, 23, 42, 0.82);
+      background: var(--overlay-bg);
       text-align: center;
       padding: 20px;
     }
@@ -103,7 +124,7 @@
       border-radius: 8px;
       cursor: pointer;
       background: var(--snake);
-      color: #052e22;
+      color: var(--btn-text);
       font-weight: 600;
       transition: transform 0.1s ease, filter 0.1s ease;
     }
@@ -131,7 +152,7 @@
       margin: 0 2px;
       border-radius: 5px;
       background: var(--panel);
-      border: 1px solid #334155;
+      border: 1px solid var(--kbd-border);
       font-family: inherit;
     }
   </style>
@@ -157,6 +178,7 @@
   <div class="controls">
     <button id="pause-btn" disabled>暂停</button>
     <button id="restart-btn">重新开始</button>
+    <button id="theme-btn">☀️ 白色</button>
   </div>
 
   <p class="hint">
@@ -178,14 +200,30 @@
       const startBtn = document.getElementById("start-btn");
       const pauseBtn = document.getElementById("pause-btn");
       const restartBtn = document.getElementById("restart-btn");
+      const themeBtn = document.getElementById("theme-btn");
       const scoreEl = document.getElementById("score");
       const bestEl = document.getElementById("best");
 
       const BEST_KEY = "snake-best-score";
+      const THEME_KEY = "snake-theme";
       let best = Number(localStorage.getItem(BEST_KEY)) || 0;
       bestEl.textContent = best;
 
       let snake, direction, nextDirection, food, score, timer, running, paused;
+
+      function applyTheme(theme, persist) {
+        document.documentElement.setAttribute("data-theme", theme);
+        themeBtn.textContent = theme === "light" ? "🌙 深色" : "☀️ 白色";
+        if (persist) localStorage.setItem(THEME_KEY, theme);
+        // 主题切换后重绘，让画布内的蛇/食物/网格颜色即时更新
+        if (snake && food) draw();
+      }
+
+      function toggleTheme() {
+        const current =
+          document.documentElement.getAttribute("data-theme") || "dark";
+        applyTheme(current === "light" ? "dark" : "light", true);
+      }
 
       function reset() {
         snake = [
@@ -300,7 +338,9 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // 网格
-        ctx.strokeStyle = "rgba(148, 163, 184, 0.06)";
+        ctx.strokeStyle =
+          getComputedStyle(document.documentElement).getPropertyValue("--grid-line").trim() ||
+          "rgba(148, 163, 184, 0.08)";
         ctx.lineWidth = 1;
         for (let i = 1; i < COLS; i++) {
           ctx.beginPath();
@@ -388,7 +428,10 @@
         reset();
         start();
       });
+      themeBtn.addEventListener("click", toggleTheme);
 
+      // 初始化主题（默认深色），再绘制棋盘
+      applyTheme(localStorage.getItem(THEME_KEY) || "dark", false);
       reset();
     })();
   </script>
