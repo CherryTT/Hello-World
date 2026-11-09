@@ -258,10 +258,12 @@
           y: snake[0].y + direction.y,
         };
 
-        // 撞墙或撞到自己
+        // 撞墙或撞到自己（吃食物时尾部不动，否则尾部会离开，可忽略尾格）
         const hitWall =
           head.x < 0 || head.y < 0 || head.x >= COLS || head.y >= ROWS;
-        const hitSelf = snake.some((s) => s.x === head.x && s.y === head.y);
+        const eating = head.x === food.x && head.y === food.y;
+        const bodyToCheck = eating ? snake : snake.slice(0, -1);
+        const hitSelf = bodyToCheck.some((s) => s.x === head.x && s.y === head.y);
 
         if (hitWall || hitSelf) {
           gameOver();
